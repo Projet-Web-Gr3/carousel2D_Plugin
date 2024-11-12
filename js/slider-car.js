@@ -1,70 +1,79 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Conteneur du carousel
-    const container = document.createElement('div');
-    container.className = 'slider-car';
+    // Extract image URLs from the DOM
+    const imageElements = document.querySelectorAll('.wp-block-image img');
+    const imageUrls = Array.from(imageElements).map(img => img.src);
 
-    // conteneur des slides et les slides à l'intérieur
-    const slides = document.createElement('div');
-    slides.className = 'slides';
+    // Remove the original image elements from the DOM
+    imageElements.forEach(img => img.parentElement.remove());
 
-    // Boucle pour créer les slides
-    for (let i = 0; i < carouselImages.images.length; i++) {
-        const slide = document.createElement('div');
-        slide.className = `slide no${i}`;
+    if (imageUrls.length > 0) {
+        console.log('imageUrls:', imageUrls); // Debugging line
+        const cibleCarousel = document.querySelector('.cible-carousel');
 
-        const img = document.createElement('img');
-        img.src = carouselImages.images[i];
-        img.alt = `Slide ${i}`;
+        // Create the main carousel container
+        const container = document.createElement('div');
+        container.className = 'slider-car';
 
-        slide.appendChild(img);
-        slides.appendChild(slide);
-    }
+        // Create the slides container
+        const slidesContainer = document.createElement('div');
+        slidesContainer.className = 'slides';
 
-    // Append les slides au container
-    container.appendChild(slides);
+        // Create carousel items
+        imageUrls.forEach((imageUrl, index) => {
+            const slide = document.createElement('div');
+            slide.className = `slide no${index}`;
 
-    // Les 2 boutons pour suivant et précédent
-    const buttonPrev = document.createElement('button');
-    buttonPrev.className = 'prev';
-    buttonPrev.textContent = 'Précédent';
-    container.appendChild(buttonPrev);
+            const imgElement = document.createElement('img');
+            imgElement.src = imageUrl;
+            imgElement.alt = `Slide ${index}`;
 
-    const buttonNext = document.createElement('button');
-    buttonNext.className = 'next';
-    buttonNext.textContent = 'Suivant';
-    container.appendChild(buttonNext);
+            slide.appendChild(imgElement);
+            slidesContainer.appendChild(slide);
+        });
 
-    // Append le container au body
-    const shortcodePlaceholder = document.querySelector('.cible-carousel');
-    if (shortcodePlaceholder) {
-        shortcodePlaceholder.appendChild(container);
+        // Append slides container to main container
+        container.appendChild(slidesContainer);
+
+        // Add navigation buttons
+        const buttonPrev = document.createElement('button');
+        buttonPrev.className = 'prev';
+        buttonPrev.textContent = 'Précédent';
+
+        const buttonNext = document.createElement('button');
+        buttonNext.className = 'next';
+        buttonNext.textContent = 'Suivant';
+
+        container.appendChild(buttonPrev);
+        container.appendChild(buttonNext);
+
+        // Append main container to cible-carousel
+        if (cibleCarousel) {
+            cibleCarousel.appendChild(container);
+        } else {
+            console.error('Shortcode placeholder not found');
+        }
+
+        // Existing carousel code
+        let currentIndex = 0;
+
+        function updateSlidePosition() {
+            const slideWidth = container.clientWidth;
+            slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        }
+
+        buttonPrev.addEventListener('click', function() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : slidesContainer.children.length - 1;
+            updateSlidePosition();
+        });
+
+        buttonNext.addEventListener('click', function() {
+            currentIndex = (currentIndex < slidesContainer.children.length - 1) ? currentIndex + 1 : 0;
+            updateSlidePosition();
+        });
+
+        updateSlidePosition();
+        window.addEventListener('resize', updateSlidePosition);
     } else {
-        console.error('Shortcode placeholder not found');
+        console.error('No images found for the carousel.');
     }
-
-    // L'index de la slide actuelle
-    let currentIndex = 0;
-
-    // Fonction qui met à jour la position des slides
-    function updateSlidePosition() {
-        const slideWidth = container.clientWidth;
-        slides.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    }
-
-    // Écouteur d'événement pour les 2 boutons pour faire défiler les slides
-    buttonPrev.addEventListener('click', function() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : carouselImages.images.length - 1;
-        updateSlidePosition();
-    });
-
-    buttonNext.addEventListener('click', function() {
-        currentIndex = (currentIndex < carouselImages.images.length - 1) ? currentIndex + 1 : 0;
-        updateSlidePosition();
-    });
-
-    // Update initial de la position des slides
-    updateSlidePosition();
-
-    // Update de la position des slides lors du redimensionnement de la fenêtre
-    window.addEventListener('resize', updateSlidePosition);
 });
