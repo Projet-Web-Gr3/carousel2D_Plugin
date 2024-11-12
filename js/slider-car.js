@@ -1,40 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Extraire les URL des images de la page
-    const imageElements = document.querySelectorAll('.wp-block-image img');
-    const imageUrls = Array.from(imageElements).map(img => img.src);
+    const acfFields = carouselData.acfFields;
 
-    // Retirer les images de la page
-    imageElements.forEach(img => img.parentElement.remove());
-
-    if (imageUrls.length > 0) {
-        console.log('imageUrls:', imageUrls); // Debugging line
+    if (acfFields && acfFields.length > 0) {
+        console.log('acfFields:', acfFields); // Debugging line
         const cibleCarousel = document.querySelector('.cible-carousel');
 
-        // Cree le container principal
+        // Create the main carousel container
         const container = document.createElement('div');
         container.className = 'slider-car';
 
-        // Cree le container des slides
+        // Create the slides container
         const slidesContainer = document.createElement('div');
         slidesContainer.className = 'slides';
 
-        // Cree les slides
-        imageUrls.forEach((imageUrl, index) => {
+        // Create carousel items
+        acfFields.forEach((fields, index) => {
+            console.log(`Processing fields index ${index}:`, fields); // Debugging line
             const slide = document.createElement('div');
             slide.className = `slide no${index}`;
 
             const imgElement = document.createElement('img');
-            imgElement.src = imageUrl;
-            imgElement.alt = `Slide ${index}`;
+            imgElement.src = fields.photo;
+            imgElement.alt = fields.profs || `Slide ${index}`;
 
+            const titleElement = document.createElement('h2');
+            titleElement.textContent = fields.profs;
+
+            const captionElement = document.createElement('p');
+            captionElement.textContent = fields.description;
+
+            slide.appendChild(titleElement);
+            slide.appendChild(captionElement);
             slide.appendChild(imgElement);
             slidesContainer.appendChild(slide);
+
+            console.log('Slide added:', slide); // Debugging line
         });
 
-        // Ajoute le container des slides au container principal
+        // Append slides container to main container
         container.appendChild(slidesContainer);
 
-        // Ajoute les boutons de navigation
+        // Add navigation buttons
         const buttonPrev = document.createElement('button');
         buttonPrev.className = 'prev';
         buttonPrev.textContent = 'Précédent';
@@ -46,17 +52,17 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(buttonPrev);
         container.appendChild(buttonNext);
 
-        // Ajoute le container principal a la page
+        // Append main container to cible-carousel
         if (cibleCarousel) {
             cibleCarousel.appendChild(container);
+            console.log('Carousel structure added to cible-carousel'); // Debugging line
         } else {
             console.error('Shortcode placeholder not found');
         }
 
-        // Index de la slide actuelle
+        // Existing carousel code
         let currentIndex = 0;
 
-        // Fonction pour mettre a jour la position des slides
         function updateSlidePosition() {
             const slideWidth = container.clientWidth;
             slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
@@ -75,6 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSlidePosition();
         window.addEventListener('resize', updateSlidePosition);
     } else {
-        console.error('No images found for the carousel.');
+        console.error('No ACF fields found for the carousel.');
     }
 });
