@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Extract image URLs from the DOM
+    // Extraire les URL des images de la page
     const imageElements = document.querySelectorAll('.wp-block-image img');
     const imageUrls = Array.from(imageElements).map(img => img.src);
 
-    // Remove the original image elements from the DOM
+    // Retirer les images de la page
     imageElements.forEach(img => img.parentElement.remove());
 
     if (imageUrls.length > 0) {
         console.log('imageUrls:', imageUrls); // Debugging line
         const cibleCarousel = document.querySelector('.cible-carousel');
 
-        // Create the main carousel container
+        // Cree le container principal
         const container = document.createElement('div');
         container.className = 'slider-car';
 
-        // Create the slides container
+        // Cree le container des slides
         const slidesContainer = document.createElement('div');
         slidesContainer.className = 'slides';
 
-        // Create carousel items
+        // Cree les slides
         imageUrls.forEach((imageUrl, index) => {
             const slide = document.createElement('div');
             slide.className = `slide no${index}`;
@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
             slidesContainer.appendChild(slide);
         });
 
-        // Append slides container to main container
+        // Ajoute le container des slides au container principal
         container.appendChild(slidesContainer);
 
-        // Add navigation buttons
+        // Ajoute les boutons de navigation
         const buttonPrev = document.createElement('button');
         buttonPrev.className = 'prev';
         buttonPrev.textContent = 'Précédent';
@@ -46,16 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(buttonPrev);
         container.appendChild(buttonNext);
 
-        // Append main container to cible-carousel
+        // Ajoute le container principal a la page
         if (cibleCarousel) {
             cibleCarousel.appendChild(container);
         } else {
             console.error('Shortcode placeholder not found');
         }
 
-        // Existing carousel code
+        // Index de la slide actuelle
         let currentIndex = 0;
 
+        // Fonction pour mettre a jour la position des slides
         function updateSlidePosition() {
             const slideWidth = container.clientWidth;
             slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
