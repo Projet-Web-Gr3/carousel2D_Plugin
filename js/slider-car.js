@@ -50,12 +50,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Ajouter les elements au slides
             infoProfs.appendChild(titleElement);
             infoProfs.appendChild(categorie);
-            conteneurTitres.appendChild(infoProfs);
 
             titreimg.appendChild(captionElement);
 
             imgTextContainer.appendChild(titreimg);
             imgTextContainer.appendChild(imgElement);
+
+            conteneurTitres.appendChild(infoProfs);
+            conteneurTitres.appendChild(imgTextContainer);
+
 
             slide.appendChild(conteneurTitres);
             slide.appendChild(imgTextContainer);

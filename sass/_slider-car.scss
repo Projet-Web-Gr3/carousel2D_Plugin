@@ -1,49 +1,47 @@
-.slider-car {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.slides {
+.prof-posts {
     display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-    min-width: 100%;
-    box-sizing: border-box;
-    background-color: blue;
-    color: white;
-    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 0;
+    gap: 2rem;
+  }
+  
+  .prof-post {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    font-size: 2rem;
-
-
-    @media screen and (max-width: 700px) {
-        flex-wrap: wrap;
-    }
-}
-
-.prof-post {
     margin-bottom: 20px;
-}
- 
-.prof-title {
+  }
+  @media screen and (min-width: 1080px) {
+    .prof-post {
+      width: 65%;
+      align-items: flex-start;
+    }
+  }
+  
+  .prof-title {
     margin: 10px 0;
-}
- 
-.titre-image-prof {
+  }
+  
+  .titre-image-prof {
     position: relative;
     display: inline-block;
-}
- 
-.titre-image-prof img {
-    width: 100%; /* Ensures images are responsive */
+  }
+  @media screen and (min-width: 1080px) {
+    .titre-image-prof {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  
+  .titre-image-prof img {
     display: block;
-}
- 
-.texte-prof {
+  }
+  
+  .texte-prof {
     position: absolute;
     top: 0;
     left: 0;
@@ -52,34 +50,27 @@
     display: none; /* Hidden by default */
     background-color: rgba(0, 0, 0, 0.5); /* Dark background for better readability */
     color: #fff;
-    padding: 10px;
+    padding: 1rem;
     box-sizing: border-box;
     text-align: center;
     opacity: 0; /* Start transparent */
     transition: opacity 0.3s ease-in-out;
-}
- 
-.titre-image-prof:hover .texte-prof,
-.titre-image-prof:active .texte-prof {
+  }
+  @media screen and (min-width: 1080px) {
+    .texte-prof {
+      position: static;
+      width: 70%;
+      height: auto;
+      display: block; /* Make text always visible */
+      opacity: 1; /* Fully visible */
+      background-color: transparent; /* Remove background */
+      padding: 0; /* Adjust padding */
+      text-align: left;
+    }
+  }
+  
+  .titre-image-prof:hover .texte-prof,
+  .titre-image-prof:active .texte-prof {
     display: block;
     opacity: 1; /* Fully visible when hovered or tapped */
-}
-
-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.prev {
-    left: 10px;
-}
-
-.next {
-    right: 10px;
-}
+  }
