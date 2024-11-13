@@ -12,12 +12,16 @@
 .slide {
   min-width: 100%;
   box-sizing: border-box;
-  background-color: blue;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+}
+@media screen and (max-width: 700px) {
+  .slide {
+    flex-wrap: wrap;
+  }
 }
 
 .prof-post {
