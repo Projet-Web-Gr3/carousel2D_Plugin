@@ -60,6 +60,7 @@
 }
 .titre-image-prof img {
   display: block;
+  width: 500px;
 }
 
 .texte-prof {
