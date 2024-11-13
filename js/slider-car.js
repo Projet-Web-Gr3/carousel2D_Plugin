@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.createElement('div');
         container.className = 'slider-car';
 
-        // Create the slides container
+        // Cree le container pour les slides
         const slidesContainer = document.createElement('div');
         slidesContainer.className = 'slides';
 
-      // Create carousel items
+      // Cree les slides
       acfFields.forEach((fields, index) => {
             console.log(`Processing fields index ${index}:`, fields); // Debbugage
             const slide = document.createElement('div');
@@ -23,9 +23,20 @@ document.addEventListener('DOMContentLoaded', function() {
             imgElement.src = fields.photo;
             imgElement.alt = fields.profs || `Slide ${index}`;
 
-            // Create a container for the text elements
+            // Cree les conteneurs pour le titre et la description
+            const conteneurTitres = document.createElement('div');
+            conteneurTitres.className = 'prof-post';
+
             const infoProfs = document.createElement('div');
-            infoProfs.className = 'infoProfs';
+            infoProfs.className = 'prof-title';
+
+            // Conteneur pour l'image et le texte
+            const imgTextContainer = document.createElement('div');
+            imgTextContainer.className = 'titre-image-prof';
+
+            // Conteneur pour le titre de l'image
+            const titreimg = document.createElement('div');
+            titreimg.className = 'texte-prof';
 
             const titleElement = document.createElement('h2');
             titleElement.textContent = fields.profs;
@@ -36,12 +47,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const captionElement = document.createElement('p');
             captionElement.textContent = fields.description;
 
+            // Ajouter les elements au slides
             infoProfs.appendChild(titleElement);
             infoProfs.appendChild(categorie);
-            infoProfs.appendChild(captionElement);
+            conteneurTitres.appendChild(infoProfs);
 
-            slide.appendChild(infoProfs);
-            slide.appendChild(imgElement);
+            titreimg.appendChild(captionElement);
+
+            imgTextContainer.appendChild(titreimg);
+            imgTextContainer.appendChild(imgElement);
+
+            slide.appendChild(conteneurTitres);
+            slide.appendChild(imgTextContainer);
             slidesContainer.appendChild(slide);
 
             console.log('Slide added:', slide); // Debbugage
@@ -53,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add navigation buttons
         const buttonPrev = document.createElement('button');
         buttonPrev.className = 'prev';
-        buttonPrev.textContent = 'Précédent';
+        buttonPrev.textContent = '<';
 
         const buttonNext = document.createElement('button');
         buttonNext.className = 'next';
-        buttonNext.textContent = 'Suivant';
+        buttonNext.textContent = '>';
 
         container.appendChild(buttonPrev);
         container.appendChild(buttonNext);
