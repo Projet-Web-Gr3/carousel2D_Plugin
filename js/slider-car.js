@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const acfFields = carouselData.acfFields;
 
     if (acfFields && acfFields.length > 0) {
-        console.log('acfFields:', acfFields); // Debugging line
+        console.log('acfFields:', acfFields); // Debbugage
         const cibleCarousel = document.querySelector('.cible-carousel');
 
-        // Create the main carousel container
+        // Cree le container principal
         const container = document.createElement('div');
         container.className = 'slider-car';
 
@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const slidesContainer = document.createElement('div');
         slidesContainer.className = 'slides';
 
-        // Create carousel items
-        acfFields.forEach((fields, index) => {
-            console.log(`Processing fields index ${index}:`, fields); // Debugging line
+      // Create carousel items
+      acfFields.forEach((fields, index) => {
+            console.log(`Processing fields index ${index}:`, fields); // Debbugage
             const slide = document.createElement('div');
             slide.className = `slide no${index}`;
 
@@ -23,21 +23,31 @@ document.addEventListener('DOMContentLoaded', function() {
             imgElement.src = fields.photo;
             imgElement.alt = fields.profs || `Slide ${index}`;
 
+            // Create a container for the text elements
+            const infoProfs = document.createElement('div');
+            infoProfs.className = 'infoProfs';
+
             const titleElement = document.createElement('h2');
             titleElement.textContent = fields.profs;
+
+            const categorie = document.createElement('p');
+            categorie.textContent = fields.type;
 
             const captionElement = document.createElement('p');
             captionElement.textContent = fields.description;
 
-            slide.appendChild(titleElement);
-            slide.appendChild(captionElement);
+            infoProfs.appendChild(titleElement);
+            infoProfs.appendChild(categorie);
+            infoProfs.appendChild(captionElement);
+
+            slide.appendChild(infoProfs);
             slide.appendChild(imgElement);
             slidesContainer.appendChild(slide);
 
-            console.log('Slide added:', slide); // Debugging line
+            console.log('Slide added:', slide); // Debbugage
         });
 
-        // Append slides container to main container
+        // Ajouter les slides au container principal
         container.appendChild(slidesContainer);
 
         // Add navigation buttons
@@ -52,17 +62,18 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(buttonPrev);
         container.appendChild(buttonNext);
 
-        // Append main container to cible-carousel
+        // Ajouter le container principal au shortcode
         if (cibleCarousel) {
             cibleCarousel.appendChild(container);
-            console.log('Carousel structure added to cible-carousel'); // Debugging line
+            console.log('Carousel structure added to cible-carousel'); // Debbugage
         } else {
-            console.error('Shortcode placeholder not found');
+            console.error('Shortcode placeholder not found'); // Debbugage
         }
 
-        // Existing carousel code
+        // L'index de la slide actuel
         let currentIndex = 0;
 
+        // Fonctions de mise à jour de la position de la slide
         function updateSlidePosition() {
             const slideWidth = container.clientWidth;
             slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
@@ -81,6 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSlidePosition();
         window.addEventListener('resize', updateSlidePosition);
     } else {
-        console.error('No ACF fields found for the carousel.');
+        console.error('No ACF fields found for the carousel.'); // Debbugage
     }
 });
