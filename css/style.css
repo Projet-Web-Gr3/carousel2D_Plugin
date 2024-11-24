@@ -15,10 +15,18 @@
   box-sizing: border-box;
   color: white;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: center;
   font-size: 2rem;
+  padding: 0 4rem;
+}
+@media screen and (max-width: 1080px) {
+  .slide {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
 }
 
 .prof-posts {
@@ -123,6 +131,16 @@
 
 .next {
   right: 10px;
+}
+
+.cible-carousel-2 .prev {
+  left: 10px;
+  top: 86%;
+}
+
+.cible-carousel-2 .next {
+  right: 10px;
+  top: 86%;
 }
 
 .titre-image-prof img {

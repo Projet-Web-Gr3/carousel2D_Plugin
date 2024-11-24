@@ -2,116 +2,125 @@ document.addEventListener('DOMContentLoaded', function() {
     const acfFields = carouselData.acfFields;
 
     if (acfFields && acfFields.length > 0) {
-        console.log('acfFields:', acfFields); // Debbugage
-        const cibleCarousel = document.querySelector('.cible-carousel');
+        console.log('acfFields:', acfFields); // Debugging
 
-        // Cree le container principal
-        const container = document.createElement('div');
-        container.className = 'slider-car';
+        // Function to create a carousel
+        function createCarousel(targetSelector, type) {
+            const cibleCarousel = document.querySelector(targetSelector);
 
-        // Cree le container pour les slides
-        const slidesContainer = document.createElement('div');
-        slidesContainer.className = 'slides';
+            // Filter fields based on type
+            const filteredFields = acfFields.filter(fields => fields.type === type);
 
-      // Cree les slides
-      acfFields.forEach((fields, index) => {
-            console.log(`Processing fields index ${index}:`, fields); // Debbugage
-            const slide = document.createElement('div');
-            slide.className = `slide no${index}`;
+            // Create the main container
+            const container = document.createElement('div');
+            container.className = 'slider-car';
 
-            const imgElement = document.createElement('img');
-            imgElement.src = fields.photo;
-            imgElement.alt = fields.profs || `Slide ${index}`;
+            // Create the container for slides
+            const slidesContainer = document.createElement('div');
+            slidesContainer.className = 'slides';
 
-            // Cree les conteneurs pour le titre et la description
-            const conteneurTitres = document.createElement('div');
-            conteneurTitres.className = 'prof-post';
+            // Create the slides
+            filteredFields.forEach((fields, index) => {
+                console.log(`Processing fields index ${index}:`, fields); // Debugging
+                const slide = document.createElement('div');
+                slide.className = `slide no${index}`;
 
-            const infoProfs = document.createElement('div');
-            infoProfs.className = 'prof-title';
+                const imgElement = document.createElement('img');
+                imgElement.src = fields.photo;
+                imgElement.alt = fields.profs || `Slide ${index}`;
 
-            // Conteneur pour l'image et le texte
-            const imgTextContainer = document.createElement('div');
-            imgTextContainer.className = 'titre-image-prof';
+                // Create containers for title and description
+                const conteneurTitres = document.createElement('div');
+                conteneurTitres.className = 'prof-post';
 
-            // Conteneur pour le titre de l'image
-            const titreimg = document.createElement('div');
-            titreimg.className = 'texte-prof';
+                const infoProfs = document.createElement('div');
+                infoProfs.className = 'prof-title';
 
-            const titleElement = document.createElement('h2');
-            titleElement.textContent = fields.profs;
+                // Container for image and text
+                const imgTextContainer = document.createElement('div');
+                imgTextContainer.className = 'titre-image-prof';
 
-            const categorie = document.createElement('p');
-            categorie.textContent = fields.type;
+                // Container for image title
+                const titreimg = document.createElement('div');
+                titreimg.className = 'texte-prof';
 
-            const captionElement = document.createElement('p');
-            captionElement.textContent = fields.description;
+                const titleElement = document.createElement('h2');
+                titleElement.textContent = fields.profs;
 
-            // Ajouter les elements au slides
-            infoProfs.appendChild(titleElement);
-            infoProfs.appendChild(categorie);
+                const categorie = document.createElement('p');
+                categorie.textContent = fields.type;
 
-            titreimg.appendChild(captionElement);
+                const captionElement = document.createElement('p');
+                captionElement.textContent = fields.description;
 
-            imgTextContainer.appendChild(titreimg);
-            imgTextContainer.appendChild(imgElement);
+                // Add elements to slides
+                infoProfs.appendChild(titleElement);
+                infoProfs.appendChild(categorie);
 
-            conteneurTitres.appendChild(infoProfs);
-            conteneurTitres.appendChild(imgTextContainer);
+                titreimg.appendChild(captionElement);
 
+                imgTextContainer.appendChild(titreimg);
+                imgTextContainer.appendChild(imgElement);
 
-            slide.appendChild(conteneurTitres);
-            slide.appendChild(imgTextContainer);
-            slidesContainer.appendChild(slide);
+                conteneurTitres.appendChild(infoProfs);
+                conteneurTitres.appendChild(imgTextContainer);
 
-            console.log('Slide added:', slide); // Debbugage
-        });
+                slide.appendChild(conteneurTitres);
+                slidesContainer.appendChild(slide);
 
-        // Ajouter les slides au container principal
-        container.appendChild(slidesContainer);
+                console.log('Slide added:', slide); // Debugging
+            });
 
-        // Add navigation buttons
-        const buttonPrev = document.createElement('button');
-        buttonPrev.className = 'prev';
-        buttonPrev.textContent = '<';
+            // Add slides to the main container
+            container.appendChild(slidesContainer);
 
-        const buttonNext = document.createElement('button');
-        buttonNext.className = 'next';
-        buttonNext.textContent = '>';
+            // Add navigation buttons
+            const buttonPrev = document.createElement('button');
+            buttonPrev.className = 'prev';
+            buttonPrev.textContent = '<';
 
-        container.appendChild(buttonPrev);
-        container.appendChild(buttonNext);
+            const buttonNext = document.createElement('button');
+            buttonNext.className = 'next';
+            buttonNext.textContent = '>';
 
-        // Ajouter le container principal au shortcode
-        if (cibleCarousel) {
-            cibleCarousel.appendChild(container);
-            console.log('Carousel structure added to cible-carousel'); // Debbugage
-        } else {
-            console.error('Shortcode placeholder not found'); // Debbugage
+            container.appendChild(buttonPrev);
+            container.appendChild(buttonNext);
+
+            // Add the main container to the shortcode
+            if (cibleCarousel) {
+                cibleCarousel.appendChild(container);
+                console.log('Carousel structure added to', targetSelector); // Debugging
+            } else {
+                console.error('Shortcode placeholder not found for', targetSelector); // Debugging
+            }
+
+            // Current slide index
+            let currentIndex = 0;
+
+            // Function to update slide position
+            function updateSlidePosition() {
+                const slideWidth = container.clientWidth;
+                slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            }
+
+            buttonPrev.addEventListener('click', function() {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : slidesContainer.children.length - 1;
+                updateSlidePosition();
+            });
+
+            buttonNext.addEventListener('click', function() {
+                currentIndex = (currentIndex < slidesContainer.children.length - 1) ? currentIndex + 1 : 0;
+                updateSlidePosition();
+            });
+
+            updateSlidePosition();
+            window.addEventListener('resize', updateSlidePosition);
         }
 
-        // L'index de la slide actuel
-        let currentIndex = 0;
-
-        // Fonctions de mise à jour de la position de la slide
-        function updateSlidePosition() {
-            const slideWidth = container.clientWidth;
-            slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-        }
-
-        buttonPrev.addEventListener('click', function() {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : slidesContainer.children.length - 1;
-            updateSlidePosition();
-        });
-
-        buttonNext.addEventListener('click', function() {
-            currentIndex = (currentIndex < slidesContainer.children.length - 1) ? currentIndex + 1 : 0;
-            updateSlidePosition();
-        });
-
-        updateSlidePosition();
-        window.addEventListener('resize', updateSlidePosition);
+        // Create two carousels
+        createCarousel('.cible-carousel-1', 'Créatif');
+        createCarousel('.cible-carousel-2', 'Logique');
     } else {
-        console.error('No ACF fields found for the carousel.'); // Debbugage
+        console.error('No ACF fields found for the carousel.'); // Debugging
     }
 });

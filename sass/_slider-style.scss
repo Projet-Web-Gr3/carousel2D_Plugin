@@ -1,0 +1,146 @@
+.slider-car {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 2rem;
+    padding: 0 4rem;
+
+    @media screen and (max-width: 1080px) {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: center;
+    }
+  }
+  
+  .prof-posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 0;
+    gap: 2rem;
+  }
+  
+  .prof-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  @media screen and (min-width: 1080px) {
+    .prof-post {
+      width: 65%;
+      align-items: flex-start;
+    }
+  }
+  .prof-title {
+    margin: 10px 0;
+  }
+  
+  .titre-image-prof {
+    position: relative;
+    display: inline-block;
+  }
+  
+  @media screen and (min-width: 1080px) {
+    .titre-image-prof {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .titre-image-prof img {
+    display: block;
+    width: 500px; /* Temporaire pour pas avoir des images de tailles dégueux*/
+  }
+  
+  .texte-prof {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background for better readability */
+    color: #fff;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    opacity: 0; /* Start transparent */
+    transition: opacity 0.3s ease-in-out;
+    z-index: 10;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  
+  @media screen and (min-width: 1080px) {
+    .texte-prof {
+      position: static;
+      width: 70%;
+      height: auto;
+      display: block; /* Make text always visible */
+      opacity: 1; /* Fully visible */
+      background-color: transparent; /* Remove background */
+      padding: 0; /* Adjust padding */
+      text-align: left;
+    }
+  }
+  .titre-image-prof:hover .texte-prof,
+  .titre-image-prof:active .texte-prof {
+    display: block;
+    opacity: 1; /* Fully visible when hovered or tapped */
+  }
+  
+  .next, .prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+
+  .cible-carousel-2 .prev {
+    left: 10px;
+    top: 86%;
+  }
+
+  .cible-carousel-2 .next {
+    right: 10px;
+    top: 86%;
+  }
+
+  .titre-image-prof img {
+    scale: 0.8;
+  }
