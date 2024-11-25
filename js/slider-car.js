@@ -4,22 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (acfFields && acfFields.length > 0) {
         console.log('acfFields:', acfFields); // Debugging
 
-        // Function to create a carousel
+        // Fonction pour créer un carousel
         function createCarousel(targetSelector, type) {
             const cibleCarousel = document.querySelector(targetSelector);
 
-            // Filter fields based on type
+            // Filtre les champs ACF par type
             const filteredFields = acfFields.filter(fields => fields.type === type);
 
-            // Create the main container
+            // Cree le container principal
             const container = document.createElement('div');
             container.className = 'slider-car';
 
-            // Create the container for slides
+            // Cree le container des slides
             const slidesContainer = document.createElement('div');
             slidesContainer.className = 'slides';
 
-            // Create the slides
+            // Cree les slides
             filteredFields.forEach((fields, index) => {
                 console.log(`Processing fields index ${index}:`, fields); // Debugging
                 const slide = document.createElement('div');
@@ -29,18 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 imgElement.src = fields.photo;
                 imgElement.alt = fields.profs || `Slide ${index}`;
 
-                // Create containers for title and description
+                // Cree le container des titres et des descriptions
                 const conteneurTitres = document.createElement('div');
                 conteneurTitres.className = 'prof-post';
 
                 const infoProfs = document.createElement('div');
                 infoProfs.className = 'prof-title';
 
-                // Container for image and text
+                // Conteneur pour le titre de l'image
                 const imgTextContainer = document.createElement('div');
                 imgTextContainer.className = 'titre-image-prof';
 
-                // Container for image title
+                // Conteneur pour le titre et la description
                 const titreimg = document.createElement('div');
                 titreimg.className = 'texte-prof';
 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const captionElement = document.createElement('p');
                 captionElement.textContent = fields.description;
 
-                // Add elements to slides
+                // Ajoute les éléments au DOM
                 infoProfs.appendChild(titleElement);
                 infoProfs.appendChild(categorie);
 
@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Slide added:', slide); // Debugging
             });
 
-            // Add slides to the main container
+            // Ajoute les slides au container principal
             container.appendChild(slidesContainer);
 
-            // Add navigation buttons
+            // Ajoute les boutons de navigation
             const buttonPrev = document.createElement('button');
             buttonPrev.className = 'prev';
             buttonPrev.textContent = '<';
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(buttonPrev);
             container.appendChild(buttonNext);
 
-            // Add the main container to the shortcode
+            // Ajoute le container principal au DOM
             if (cibleCarousel) {
                 cibleCarousel.appendChild(container);
                 console.log('Carousel structure added to', targetSelector); // Debugging
@@ -94,10 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Shortcode placeholder not found for', targetSelector); // Debugging
             }
 
-            // Current slide index
+            // Index actuel de la slide
             let currentIndex = 0;
 
-            // Function to update slide position
+            // Fonction qui met à jour la position de la slide
             function updateSlidePosition() {
                 const slideWidth = container.clientWidth;
                 slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.addEventListener('resize', updateSlidePosition);
         }
 
-        // Create two carousels
+        // Cree 2 carousels
         createCarousel('.cible-carousel-1', 'Créatif');
         createCarousel('.cible-carousel-2', 'Logique');
     } else {
