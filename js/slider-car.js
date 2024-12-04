@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const acfFields = carouselData.acfFields;
 
     if (acfFields && acfFields.length > 0) {
-        console.log('acfFields:', acfFields); // Debugging
-
         // Fonction pour créer un carousel
         function createCarousel(targetSelector, type) {
             const cibleCarousel = document.querySelector(targetSelector);
@@ -21,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Cree les slides
             filteredFields.forEach((fields, index) => {
-                console.log(`Processing fields index ${index}:`, fields); // Debugging
                 const slide = document.createElement('div');
                 slide.className = `slide no${index}`;
 
@@ -67,8 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 slide.appendChild(conteneurTitres);
                 slidesContainer.appendChild(slide);
-
-                console.log('Slide added:', slide); // Debugging
             });
 
             // Ajoute les slides au container principal
@@ -89,9 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Ajoute le container principal au DOM
             if (cibleCarousel) {
                 cibleCarousel.appendChild(container);
-                console.log('Carousel structure added to', targetSelector); // Debugging
-            } else {
-                console.error('Shortcode placeholder not found for', targetSelector); // Debugging
             }
 
             // Index actuel de la slide
@@ -120,7 +112,5 @@ document.addEventListener('DOMContentLoaded', function() {
         // Cree 2 carousels
         createCarousel('.cible-carousel-1', 'Créatif');
         createCarousel('.cible-carousel-2', 'Logique');
-    } else {
-        console.error('No ACF fields found for the carousel.'); // Debugging
     }
 });
