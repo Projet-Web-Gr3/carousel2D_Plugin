@@ -42,13 +42,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 titreimg.className = 'texte-prof';
 
                 const titleElement = document.createElement('h2');
-                titleElement.textContent = fields.profs;
+                titleElement.textContent = fields.type;
 
                 const categorie = document.createElement('p');
-                categorie.textContent = fields.type;
+                categorie.textContent = fields.profs;
 
                 const captionElement = document.createElement('p');
                 captionElement.textContent = fields.description;
+                const longueurMax = 230;
+
+                if (captionElement.textContent.length > longueurMax) {
+                    const truncatedText = captionElement.textContent.substring(0, longueurMax) + '...';
+                    const lirePlus = document.createElement('a');
+                    lirePlus.textContent = 'En savoir plus';
+                    lirePlus.href = `single.php?post_id=${fields.profs}`; 
+                    captionElement.textContent = truncatedText;
+                    captionElement.appendChild(lirePlus);
+                }
+                else
+                {
+                    captionElement.textContent = description;
+                }
 
                 // Ajoute les éléments au DOM
                 infoProfs.appendChild(titleElement);
