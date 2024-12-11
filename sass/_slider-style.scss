@@ -106,8 +106,28 @@
     scale: 0.7;
     font-size: 1.5rem;
     display: flex;
-    border: 2px solid yellowgreen;
+    border: 2px solid white;
+    backdrop-filter: blur(50px);
+    filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.7));
     overflow-y: scroll;
+
+  /* WebKit pour browsers (Chrome, Safari, Firefox, etc...) */
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
     @media screen and (min-width: 1080px) {
       font-size: 1.1rem;
@@ -144,9 +164,6 @@
     cursor: pointer;
     margin: 0 20rem;
     background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: "pixellari";
     font-size: 3rem;
   }
@@ -155,14 +172,14 @@
     right: 10px;
 
     @media screen and (max-width: 1080px) {
-      right: -19rem;
-      top: 60%;
+      left: 1%;
+      top: 90%;
     }
   }
 
   .prev {
     @media screen and (max-width: 1080px) {
-      right: 1rem;
-      top: 60%;
+      right: 1%;
+      top: 90%;
     }
   }
