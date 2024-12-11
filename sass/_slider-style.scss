@@ -93,14 +93,14 @@
     left: 0;
     width: 100%;
     height: 100%;
-    display: none; /* Hidden by default */
-    background-color: rgba(0, 0, 0, 0.5); /* Dark background for better readability */
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond sombre pour meilleure lisibilité */
     color: #fff;
     padding: 1rem 3rem;
     padding-top: 2rem;
     box-sizing: border-box;
     text-align: center;
-    opacity: 0; /* Start transparent */
+    opacity: 0; /* Commence invisible */
     transition: opacity 0.3s ease-in-out;
     z-index: 10;
     scale: 0.7;
@@ -141,17 +141,19 @@
       position: static;
       width: 70%;
       height: auto;
-      display: block; /* Make text always visible */
-      opacity: 1; /* Fully visible */
+      display: block; /* Rends le texte toujours visible */
+      opacity: 1; /* Visible */
       background-color: transparent;
       padding: 0;
       text-align: left;
+      backdrop-filter: none;
+      filter: none;
     }
   }
-  .titre-image-prof:hover .texte-prof,
-  .titre-image-prof:active .texte-prof {
+  .texte-prof:hover ,
+  .texte-prof:active {
     display: flex;
-    opacity: 1; /* Fully visible when hovered or tapped */
+    opacity: 1; /* Visible quand on tappe ou qu'on hover dessus */
   }
   
   .next, .prev {
